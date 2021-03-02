@@ -1,7 +1,7 @@
-package homework_3.masterChef.storage;
+package homework_4.exceptions.masterChef.storage;
 
-import homework_3.masterChef.IProduct;
-import homework_3.masterChef.exceptions.InvalidIngredientException;
+import homework_4.exceptions.masterChef.IProduct;
+import homework_4.exceptions.masterChef.exceptions.InvalidIngredientException;
 
 import java.util.ArrayList;
 
