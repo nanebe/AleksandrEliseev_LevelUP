@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EmailUtils {
+class EmailUtils extends EmailBase {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -18,13 +18,13 @@ class EmailUtils {
         this.wait = wait;
     }
 
-    void login(String user, String password) {
+    void login() {
         driver.findElement(By.name("login"))
-                .sendKeys(user);
+                .sendKeys(USERNAME);
         driver.findElement(By.cssSelector("[data-testid='enter-password']"))
                 .click();
         driver.findElement(By.name("password"))
-                .sendKeys(password);
+                .sendKeys(PASSWORD);
         driver.findElement(By.cssSelector("[data-testid='login-to-mail']"))
                 .click();
         wait.until(ExpectedConditions.titleContains("Почта Mail.ru"));
