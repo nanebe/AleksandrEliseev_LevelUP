@@ -9,8 +9,123 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <junit-jupiter.version>5.7.1</junit-jupiter.version>
+        <junit-platform-runner.version>1.8.0-M1</junit-platform-runner.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>suiteAll</id>
+            <properties>
+                <runSuite>calculator.unit.tests.**/*Test.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>suiteSumMult</id>
+            <properties>
+                <runSuite>%regex[calculator.unit.tests.(Sum|Multiple)Test.class]</runSuite>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>suiteSubDiv</id>
+            <properties>
+                <runSuite>%regex[calculator.unit.tests.(Sub|Divide)Test.class]</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>suiteTrgFunc</id>
+            <properties>
+                <runSuite>calculator.unit.tests.trigonometric.*Test.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>suiteOthFunc</id>
+            <properties>
+                <runSuite>
+                    calculator.unit.tests.**/*Test.java,
+                    !calculator.unit.tests.trigonometric.*Test.java,
+                    !%regex[calculator.unit.tests.(Sum|Multiple)Test.class],
+                    !%regex[calculator.unit.tests.(Sub|Divide)Test.class]
+                </runSuite>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${junit-platform-runner.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.levelup.qa.at</groupId>
+            <artifactId>calculator</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/calculator-1.0.jar</systemPath>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <release>11</release>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <includes>
+                        <include>${runSuite}</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
