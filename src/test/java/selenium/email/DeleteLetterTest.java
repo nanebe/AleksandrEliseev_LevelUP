@@ -12,7 +12,7 @@ class DeleteLetterTest extends EmailBase {
         emailUtils.createLetter(emailTo, mailTitle, mailText);
         emailUtils.sendLetter();
         WebElement letter = verifyLetterToMyselfInInbox();
-        emailUtils.verifyContent(letter, mailTitle, mailText, EMAIL_FROM, emailTo);
+        emailUtils.verifyContent(letter, mailTitle, mailText, MY_EMAIL, emailTo);
         emailUtils.deleteLetter(letter);
         emailUtils.verifyLetterExistInMenu("Корзина", mailText);
     }

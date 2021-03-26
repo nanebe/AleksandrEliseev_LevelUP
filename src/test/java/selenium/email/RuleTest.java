@@ -13,6 +13,6 @@ class RuleTest extends EmailBase {
 
         emailUtils.verifyLetterExistInMenu("Отправленные", mailText);
         WebElement letter = emailUtils.verifyLetterExistInMenu("Тест", mailText);
-        emailUtils.verifyContent(letter, mailTitle, mailText, EMAIL_FROM, emailTo);;
+        emailUtils.verifyContent(letter, mailTitle, mailText, MY_EMAIL, emailTo);;
     }
 }

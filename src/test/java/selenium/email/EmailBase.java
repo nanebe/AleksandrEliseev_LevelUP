@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 class EmailBase {
 
     protected final String USERNAME = "nanebe7";
-    protected final String EMAIL_FROM = USERNAME + "@mail.ru";
+    protected final String MY_EMAIL = USERNAME + "@mail.ru";
     protected final String PASSWORD = "pas20135798";
     protected final String URL = "https://mail.ru";
 
@@ -40,11 +40,11 @@ class EmailBase {
         driver.navigate().to(URL);
         emailUtils = new EmailUtils(driver, wait);
 
-        emailTo = EMAIL_FROM;
+        emailTo = MY_EMAIL;
         mailText = "Тело письма " + RandomStringUtils.randomAlphabetic(100);
         mailTitle = "Заголовок письма " + RandomStringUtils.randomNumeric(8);
 
-        emailUtils.login();
+        emailUtils.login(USERNAME, PASSWORD);
     }
 
     @AfterEach
